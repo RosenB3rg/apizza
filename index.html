@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apizza · Pizza Neoyorkina</title>
+  <link rel="icon" type="image/png" href="mascota.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Alfa+Slab+One&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-v2.css">
+</head>
+<body>
+
+  <!-- ══════════════ HEADER ══════════════ -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <img src="mascota.png" alt="" style="height:36px;width:auto;object-fit:contain">
+        <img id="logo-img" src="" alt="Apizza" class="logo-img hidden">
+        <span id="logo-text" class="logo-text">APIZZA</span>
+      </div>
+      <button id="cart-btn" class="cart-btn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span>Pedido</span>
+        <span id="cart-count" class="cart-count hidden">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <div class="hero">
+    <div class="hero-bg">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="images/BGGOOGLE.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">Est. Brooklyn · NY</div>
+        <h1 class="hero-title">
+          <span class="it-g">AP</span><span class="it-w">IZ</span><span class="it-r">ZA</span>
+        </h1>
+        <div class="hero-flag"><span></span><span></span><span></span></div>
+        <p class="hero-sub">New York &middot; New Haven &middot; Horno de barro a leña</p>
+      </div>
+      <img src="mascota.png" alt="Mascota Apizza" class="hero-mascot">
+    </div>
+  </div>
+
+  <!-- ══════════════ CATEGORIES ══════════════ -->
+  <nav class="categories" id="categories-nav"></nav>
+
+  <!-- ══════════════ MENU ══════════════ -->
+  <div id="menu-container"></div>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer>
+    <span id="admin-trigger">© Apizza 2024</span>
+  </footer>
+
+  <!-- ══════════════ CERRADO MODAL ══════════════ -->
+  <div class="modal-overlay" id="cerrado-overlay">
+    <div class="cerrado-modal" id="cerrado-modal">
+      <img src="CERRADOS POMO.png" alt="Pomo durmiendo" class="cerrado-mascot">
+      <h2 class="cerrado-title">¡Estamos cerrados!</h2>
+      <p class="cerrado-sub" id="cerrado-msg">Volvemos pronto 🍕</p>
+      <button class="btn-primary cerrado-btn" onclick="closeCerradoModal()">Entendido</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ THANK YOU MODAL ══════════════ -->
+  <div class="modal-overlay" id="thankyou-overlay">
+    <div class="thankyou-modal" id="thankyou-modal">
+      <img src="GRACIAS POMO.png" alt="Mascota" class="ty-mascot">
+      <h2 class="ty-title">¡Gracias por pedir!</h2>
+      <p class="ty-sub">Tu pedido está en camino a nosotros.<br>Te redirigimos a WhatsApp ahora.</p>
+      <button class="btn-primary ty-btn" id="ty-wa-btn">Abrir WhatsApp →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ CART OVERLAY + DRAWER ══════════════ -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+
+    <div class="cart-header">
+      <h2 id="cart-header-title">Tu pedido</h2>
+      <button class="close-btn" id="close-cart">✕</button>
+    </div>
+
+    <div class="cart-type-wrap">
+      <button type="button" class="cart-type-btn active" data-type="delivery" onclick="setCartOrderType('delivery')">🛵 Delivery</button>
+      <button type="button" class="cart-type-btn" data-type="pickup" onclick="setCartOrderType('pickup')">🏠 Retirar</button>
+    </div>
+
+    <div class="cart-scroll">
+
+      <div class="cart-items" id="cart-items">
+        <div class="cart-empty">Tu carrito está vacío</div>
+      </div>
+
+      <div id="cart-form" style="display:none">
+
+        <div class="cart-section">
+          <div class="cart-section-label">Tus datos</div>
+          <input class="form-input" type="text" id="order-name" placeholder="Nombre y apellido" autocomplete="name">
+          <input class="form-input" type="tel"  id="order-phone" placeholder="Teléfono" autocomplete="tel">
+        </div>
+
+        <div class="cart-section" id="cart-delivery-fields">
+          <div class="cart-section-label">Dirección de entrega</div>
+          <input class="form-input" type="text" id="order-street" placeholder="Dirección" autocomplete="address-line1">
+          <input class="form-input" type="text" id="order-extra"  placeholder="Piso, depto, entre calles (opcional)">
+        </div>
+
+        <div class="cart-section" id="cart-pickup-fields" style="display:none">
+          <div class="cart-section-label">Retiro en local</div>
+          <div id="cart-pickup-addr-info" class="pickup-info" style="display:none"></div>
+          <select class="form-input" id="order-pickup-time">
+            <option value="">Elegí el horario…</option>
+          </select>
+        </div>
+
+        <div class="cart-section">
+          <div class="cart-section-label">Método de pago</div>
+          <select class="form-input" id="order-payment">
+            <option value="">Seleccioná…</option>
+            <option value="Efectivo">💵 Efectivo</option>
+            <option value="Transferencia">🏦 Transferencia</option>
+            <option value="Mercado Pago">📱 Mercado Pago</option>
+          </select>
+          <label class="save-data-label">
+            <input type="checkbox" id="order-save" style="accent-color:var(--red);width:15px;height:15px">
+            Guardar mis datos para el próximo pedido
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-amount" id="cart-total-amount">$0</span>
+      </div>
+      <button class="btn-primary" id="checkout-btn" style="display:none" onclick="submitOrder()">Ir a WhatsApp →</button>
+    </div>
+
+  </aside>
+
+  <!-- ══════════════ ITEM MODAL ══════════════ -->
+  <div class="modal-overlay" id="item-modal-overlay">
+    <div class="modal" id="item-modal"></div>
+  </div>
+
+  <!-- ══════════════ ADMIN PANEL ══════════════ -->
+  <div class="modal-overlay" id="admin-overlay">
+    <div class="admin-overlay-inner" style="width:100%;min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:1rem">
+      <div class="admin-panel" id="admin-panel"></div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

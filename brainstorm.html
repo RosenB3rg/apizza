@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apizza · Brainstorm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0d0d0d; --surface:#161616; --border:#2a2a2a; --red:#e63946; --orange:#f4a261; --cream:#f0ebe0; --gray:#888; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#0a0a0a; color:var(--cream); font-family:'Inter',sans-serif; padding:2rem 1rem; }
+    .section-label { font-family:'Oswald',sans-serif; font-size:0.75rem; letter-spacing:0.25em; color:var(--orange); text-transform:uppercase; text-align:center; margin-bottom:0.5rem; }
+    .section-title { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:700; text-align:center; margin-bottom:0.3rem; }
+    .section-sub { font-size:0.78rem; color:var(--gray); text-align:center; margin-bottom:2rem; }
+
+    .mockup-wrap { max-width:400px; margin:0 auto; border:2px solid #2a2a2a; border-radius:14px; overflow:hidden; }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      background: radial-gradient(ellipse at 40% 120%, #2a0a0a 0%, #0d0d0d 65%);
+      padding: 1.8rem 1.5rem 1.2rem;
+      border-bottom: 1px solid #1f0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .hero-text {}
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid #c8922a66;
+      border-radius: 3px;
+      padding: 0.1rem 0.45rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.46rem;
+      letter-spacing: 0.18em;
+      color: #c8922a;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .hero-title .it-g { color: #e8c060; }
+    .hero-title .it-w { color: #f0ebe0; }
+    .hero-title .it-r { color: #e63946; }
+    .hero-flag { display:flex; gap:3px; margin-top:0.4rem; }
+    .hero-flag span { display:block; width:18px; height:3px; border-radius:2px; }
+    .hero-flag span:nth-child(1) { background:#5a8a3a; }
+    .hero-flag span:nth-child(2) { background:#f0ebe0; }
+    .hero-flag span:nth-child(3) { background:#e63946; }
+    .hero-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.48rem;
+      color: #7a6a4a;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+    .hero-mascot {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      flex-shrink: 0;
+      animation: float 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 6px 16px rgba(230,57,70,0.25));
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ═══ CATS ═══ */
+    .cats {
+      display: flex;
+      gap: 0;
+      background: #0f0f0f;
+      border-bottom: 1px solid #1f1a10;
+      overflow-x: auto;
+    }
+    .cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.55rem 0.8rem;
+      white-space: nowrap;
+      border-right: 1px solid #1f1a10;
+      cursor: pointer;
+    }
+    .cat.active {
+      background: #1f1206;
+      color: #c8922a;
+      border-bottom: 2px solid #c8922a;
+    }
+    .cat.inactive { color: #555; }
+
+    /* ═══ ITEMS ═══ */
+    .items { background: #0d0d0d; padding: 0.8rem; }
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid #1f1a10;
+      gap: 0.5rem;
+    }
+    .item:last-child { border-bottom: none; }
+    .item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      color: #f0ebe0;
+      font-weight: 700;
+    }
+    .item-desc {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      color: #5a5040;
+      margin-top: 0.1rem;
+      letter-spacing: 0.04em;
+    }
+    .item-right { display:flex; align-items:center; gap:0.5rem; flex-shrink:0; }
+    .item-price {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: #c8922a;
+      white-space: nowrap;
+    }
+    .item-add {
+      background: #e63946;
+      color: #fff;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* ═══ AGOTADO badge ═══ */
+    .item.agotado .item-name { color: #444; }
+    .item.agotado .item-price { color: #3a3028; }
+    .badge-agotado {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.42rem;
+      background: #1a1a1a;
+      color: #555;
+      border: 1px solid #2a2a2a;
+      border-radius: 3px;
+      padding: 0.1rem 0.3rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ═══ NOTAS ═══ */
+    .notes { max-width:400px; margin:1.5rem auto 0; }
+    .note { display:flex; align-items:flex-start; gap:0.5rem; padding:0.6rem 0.8rem; background:#111; border-left:3px solid #c8922a; border-radius:0 6px 6px 0; margin-bottom:0.6rem; }
+    .note-icon { font-size:0.9rem; flex-shrink:0; }
+    .note-text { font-size:0.72rem; color:var(--gray); line-height:1.5; }
+    .note-text strong { color:var(--cream); }
+  </style>
+</head>
+<body>
+
+  <div class="section-label">Combinación A + B</div>
+  <div class="section-title">Dark Neoyorkina con alma retro</div>
+  <div class="section-sub">Fondo oscuro de A · Tipografía serif + monospace + dorado de B · Pomo siempre presente</div>
+
+  <div class="mockup-wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">Est. Brooklyn · NY</div>
+        <div class="hero-title">
+          <span class="it-g">AP</span><span class="it-w">IZ</span><span class="it-r">ZA</span>
+        </div>
+        <div class="hero-flag"><span></span><span></span><span></span></div>
+        <div class="hero-sub">New York · Horno a leña</div>
+      </div>
+      <img src="mascota.png" alt="Pomo" class="hero-mascot">
+    </div>
+
+    <!-- CATEGORÍAS -->
+    <div class="cats">
+      <div class="cat active">Pizzas 50cm</div>
+      <div class="cat inactive">Pizzas 30cm</div>
+      <div class="cat inactive">Bebidas</div>
+    </div>
+
+    <!-- ITEMS -->
+    <div class="items">
+      <div class="item">
+        <div>
+          <div class="item-name">Pepperoni</div>
+          <div class="item-desc">Salsa · Mozzarella · Pepperoni</div>
+        </div>
+        <div class="item-right">
+          <span class="item-price">$26.000</span>
+          <button class="item-add">+</button>
+        </div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-name">Cheese</div>
+          <div class="item-desc">Triple mozzarella · Salsa</div>
+        </div>
+        <div class="item-right">
+          <span class="item-price">$23.000</span>
+          <button class="item-add">+</button>
+        </div>
+      </div>
+      <div class="item agotado">
+        <div>
+          <div class="item-name">Marinara</div>
+          <div class="item-desc">Salsa · Ajo · Orégano</div>
+        </div>
+        <div class="item-right">
+          <span class="badge-agotado">Agotado</span>
+        </div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-name">Fugazza</div>
+          <div class="item-desc">Cebolla · Mozzarella</div>
+        </div>
+        <div class="item-right">
+          <span class="item-price">$23.000</span>
+          <button class="item-add">+</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOTAS -->
+  <div class="notes">
+    <div class="note">
+      <span class="note-icon">🍕</span>
+      <div class="note-text"><strong>Tipografía:</strong> Título en Playfair Display (serif elegante), categorías y precios en Space Mono (monospace retro). El rojo se mantiene como acento principal.</div>
+    </div>
+    <div class="note">
+      <span class="note-icon">🐅</span>
+      <div class="note-text"><strong>Pomo</strong> flota siempre en el hero, con el mismo comportamiento actual.</div>
+    </div>
+    <div class="note">
+      <span class="note-icon">⬛</span>
+      <div class="note-text"><strong>Fondo:</strong> Negro profundo de A. El dorado <span style="color:#c8922a">#c8922a</span> reemplaza el naranja como acento secundario, dando ese toque retro de B.</div>
+    </div>
+    <div class="note">
+      <span class="note-icon">🔴</span>
+      <div class="note-text"><strong>Ítem agotado</strong> ya incluido en el mockup: gris oscuro + badge "AGOTADO" en monospace.</div>
+    </div>
+  </div>
+
+</body>
+</html>
