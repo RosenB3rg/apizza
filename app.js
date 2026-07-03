@@ -723,15 +723,15 @@ function submitOrder() {
   const wantsToSave = document.getElementById('order-save').checked;
 
   if (!name || !phone || !payment) {
-    alert('Por favor completá todos los campos');
+    uiToast('Por favor completá todos los campos', 'error');
     return;
   }
   if (!isPickup && !street) {
-    alert('Por favor ingresá la dirección de entrega');
+    uiToast('Por favor ingresá la dirección de entrega', 'error');
     return;
   }
   if (isPickup && !pickupTime) {
-    alert('Por favor elegí el horario de retiro');
+    uiToast('Por favor elegí el horario de retiro', 'error');
     return;
   }
 
@@ -890,16 +890,20 @@ function bindEvents() {
 // ── Admin access ──────────────────────────────────────────────
 let isAdminLoggedIn = false;
 
-function promptAdminLogin() {
+async function promptAdminLogin() {
   if (isAdminLoggedIn) { openAdminPanel(); return; }
-  const pwd = prompt('Contraseña admin:');
+  const pwd = await uiPrompt('Ingresá la contraseña para acceder al panel', {
+    title: 'Acceso admin',
+    type: 'password',
+    okText: 'Entrar'
+  });
   if (!pwd) return;
   const data = getData();
   if (pwd === data.adminPassword) {
     isAdminLoggedIn = true;
     openAdminPanel();
   } else {
-    alert('Contraseña incorrecta');
+    uiToast('Contraseña incorrecta', 'error');
   }
 }
 
