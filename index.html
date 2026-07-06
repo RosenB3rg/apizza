@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="style-v2.css">
 </head>
 <body>
-  <!-- deploy-test: netlify auto-deploy check -->
 
   <!-- ══════════════ HEADER ══════════════ -->
   <header>
@@ -49,7 +48,11 @@
         <div class="hero-flag"><span></span><span></span><span></span></div>
         <p class="hero-sub">New York &middot; New Haven &middot; Horno de barro a leña</p>
       </div>
-      <img src="images/mascota.png" alt="Mascota Apizza" class="hero-mascot">
+      <div class="hero-mascot hero-mascot-frame">
+        <video class="hero-mascot-video" autoplay muted loop playsinline poster="images/mascota.png" aria-label="Mascota Apizza">
+          <source src="images/mascota-animated.mp4" type="video/mp4">
+        </video>
+      </div>
     </div>
   </div>
 
@@ -169,6 +172,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
+  <script src="ui-dialogs.js"></script>
   <script src="config.js"></script>
   <script src="data.js"></script>
   <script src="app.js"></script>

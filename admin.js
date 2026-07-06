@@ -648,7 +648,7 @@ function saveItemForm() {
   const desc  = document.getElementById('fi-desc').value.trim();
   const ings  = document.getElementById('fi-ings').value.trim();
 
-  if (!name || !price) { alert('Nombre y precio son obligatorios'); return; }
+  if (!name || !price) { uiToast('Nombre y precio son obligatorios', 'error'); return; }
 
   const payload = {
     name, category: cat, price,
@@ -678,11 +678,12 @@ function startEditItem(id) {
   showItemForm(id);
 }
 
-function confirmDelete(id) {
+async function confirmDelete(id) {
   const data = getData();
   const item = data.items.find(i => i.id === id);
   if (!item) return;
-  if (confirm(`¿Eliminar "${item.name}"?`)) {
+  const ok = await uiConfirm(`¿Eliminar "${item.name}"?`, { title: 'Eliminar producto', okText: 'Eliminar', danger: true });
+  if (ok) {
     deleteItem(id);
     renderMenu();
     renderTabContent();
@@ -755,7 +756,7 @@ function showExtraForm(extId) {
 function saveExtraForm() {
   const name  = document.getElementById('ef-name').value.trim();
   const price = parseInt(document.getElementById('ef-price').value);
-  if (!name || !price) { alert('Nombre y precio son obligatorios'); return; }
+  if (!name || !price) { uiToast('Nombre y precio son obligatorios', 'error'); return; }
 
   if (editingExtraId) {
     updateExtra(editingExtraId, { name, price });
@@ -773,11 +774,12 @@ function cancelExtraForm() {
 
 function startEditExtra(id) { showExtraForm(id); }
 
-function confirmDeleteExtra(id) {
+async function confirmDeleteExtra(id) {
   const data = getData();
   const ext = data.extras.find(e => e.id === id);
   if (!ext) return;
-  if (confirm(`¿Eliminar extra "${ext.name}"?`)) {
+  const ok = await uiConfirm(`¿Eliminar extra "${ext.name}"?`, { title: 'Eliminar extra', okText: 'Eliminar', danger: true });
+  if (ok) {
     deleteExtra(id);
     renderTabContent();
   }
@@ -919,7 +921,7 @@ function saveComboForm() {
   const optionGroups = readComboGroups();
 
   if (!internalName || !description || !price) {
-    alert('Completá nombre interno, descripción y precio');
+    uiToast('Completá nombre interno, descripción y precio', 'error');
     return;
   }
 
@@ -937,8 +939,9 @@ function editCombo(id) {
   if (combo) openComboForm(combo);
 }
 
-function deleteComboAdmin(id) {
-  if (!confirm('¿Eliminar este combo?')) return;
+async function deleteComboAdmin(id) {
+  const ok = await uiConfirm('¿Eliminar este combo?', { title: 'Eliminar combo', okText: 'Eliminar', danger: true });
+  if (!ok) return;
   deleteCombo(id);
   switchTab('combos');
 }
@@ -1061,14 +1064,14 @@ function refreshDeliCart() {
 }
 
 function submitDeliOrder() {
-  if (!deliCart.length) { alert('Agregá al menos un ítem'); return; }
+  if (!deliCart.length) { uiToast('Agregá al menos un ítem', 'error'); return; }
   const name    = document.getElementById('deli-name').value.trim();
   const phone   = document.getElementById('deli-phone').value.trim();
   const address = document.getElementById('deli-address').value.trim();
   const payment = document.getElementById('deli-payment').value;
   const notes   = document.getElementById('deli-notes').value.trim();
 
-  if (!name) { alert('El nombre del cliente es obligatorio'); return; }
+  if (!name) { uiToast('El nombre del cliente es obligatorio', 'error'); return; }
 
   saveOrder({
     type: 'DELI',
@@ -1078,7 +1081,7 @@ function submitDeliOrder() {
   });
 
   deliCart = [];
-  alert('✓ Comanda guardada correctamente');
+  uiToast('Comanda guardada correctamente', 'success');
   switchTab('orders');
 }
 
@@ -1264,7 +1267,7 @@ function saveSettings() {
   data.sheetsWebhookUrl = sheets;
   if (fbRaw) {
     try { data.firebaseConfig = JSON.parse(fbRaw); }
-    catch (e) { alert('Firebase Config inválido — revisá que sea un JSON válido'); return; }
+    catch (e) { uiToast('Firebase Config inválido — revisá que sea un JSON válido', 'error'); return; }
   }
 
   // Horarios
@@ -1292,22 +1295,26 @@ function saveSettings() {
 
   renderMenu();
   renderCategories();
-  alert('✓ Configuración guardada');
+  uiToast('Configuración guardada', 'success');
 }
 
-function resetAllData() {
-  if (confirm('¿Restaurar todos los datos de fábrica? Esto borrará los cambios que hayas hecho.')) {
-    localStorage.removeItem('apizza_data');
-    localStorage.removeItem('apizza_orders');
-    alert('Datos restaurados. La página se va a recargar.');
-    location.reload();
-  }
+async function resetAllData() {
+  const ok = await uiConfirm('¿Restaurar todos los datos de fábrica? Esto borrará los cambios que hayas hecho.', {
+    title: 'Restaurar datos',
+    okText: 'Sí, restaurar',
+    danger: true
+  });
+  if (!ok) return;
+  localStorage.removeItem('apizza_data');
+  localStorage.removeItem('apizza_orders');
+  await uiAlert('Datos restaurados. La página se va a recargar.');
+  location.reload();
 }
 
 // ── Export CSV ────────────────────────────────────────────────
 function exportCSV() {
   const orders = getOrders();
-  if (!orders.length) { alert('No hay pedidos para exportar'); return; }
+  if (!orders.length) { uiToast('No hay pedidos para exportar', 'error'); return; }
   const rows = [['ID','Fecha','Tipo','Cliente','Teléfono','Dirección','Items','Pago','Total']];
   orders.forEach(o => {
     rows.push([
