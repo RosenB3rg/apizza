@@ -16,7 +16,7 @@ const IMG = {
 
 const DEFAULT_DATA = {
   _version: DATA_VERSION,
-  categories: ['Pizzas grandes (50CM)', 'Pizzas medianas (30CM)', 'Bebidas'],
+  categories: ['Pizzas grandes (50CM)', 'Slices (Porciones)', 'Bebidas'],
   items: [
     // ── Pizzas grandes (50CM) ─────────────────────────────────
     {
@@ -63,48 +63,26 @@ const DEFAULT_DATA = {
       available: true,
       stock: null
     },
-    // ── Pizzas medianas (30CM) ────────────────────────────────
+    // ── Slices (Porciones) ────────────────────────────────────
     {
-      id: 'm-001',
+      id: 's-001',
       name: 'Cheese',
-      category: 'Pizzas medianas (30CM)',
+      category: 'Slices (Porciones)',
       description: 'Masa fermentada por 36hs, mozzarella, tomate italiano',
-      price: 17000,
+      price: 5000,
       image: IMG.cheese,
       baseIngredients: ['Masa fermentada 36hs', 'Mozzarella', 'Tomate italiano'],
       available: true,
       stock: null
     },
     {
-      id: 'm-002',
+      id: 's-002',
       name: 'Pepperoni',
-      category: 'Pizzas medianas (30CM)',
+      category: 'Slices (Porciones)',
       description: 'Masa fermentada por 36hs, mozzarella, tomate italiano, pepperoni',
-      price: 20000,
+      price: 6500,
       image: IMG.pepperoni,
       baseIngredients: ['Masa fermentada 36hs', 'Mozzarella', 'Tomate italiano', 'Pepperoni'],
-      available: true,
-      stock: null
-    },
-    {
-      id: 'm-003',
-      name: 'Marinara',
-      category: 'Pizzas medianas (30CM)',
-      description: 'Masa fermentada por 36hs, tomate italiano, ajo (sin mozzarella)',
-      price: 14000,
-      image: IMG.marinara,
-      baseIngredients: ['Masa fermentada 36hs', 'Tomate italiano', 'Ajo'],
-      available: true,
-      stock: null
-    },
-    {
-      id: 'm-004',
-      name: 'Fugazza con queso',
-      category: 'Pizzas medianas (30CM)',
-      description: 'Masa fermentada por 36hs, mozzarella, cebolla blanca, cebolla morada, chimichurri pizzero',
-      price: 17000,
-      image: IMG.fugazza,
-      baseIngredients: ['Masa fermentada 36hs', 'Mozzarella', 'Cebolla blanca', 'Cebolla morada', 'Chimichurri pizzero'],
       available: true,
       stock: null
     },
