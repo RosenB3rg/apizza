@@ -266,7 +266,9 @@ function renderItemCard(item) {
          <img class="item-img" src="${item.image}" alt="${item.name}" loading="lazy">
          ${unavailable ? '<div class="item-img-overlay"></div>' : ''}
        </div>`
-    : '';
+    : `<div class="item-img-wrap item-img-placeholder">
+         <span>coming soon</span>
+       </div>`;
 
   return `
     <div class="menu-item ${unavailable ? 'unavailable' : ''}" data-id="${item.id}">

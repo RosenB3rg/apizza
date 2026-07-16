@@ -2,21 +2,21 @@
 //  APIZZA · data.js  –  Datos y acceso a localStorage
 // ============================================================
 
-const DATA_VERSION = 6;
+const DATA_VERSION = 7;
 
 const IMG = {
-  cheese:    'images/cheese.jpeg',
-  pepperoni: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&h=400&fit=crop&auto=format&q=85',
-  marinara:  'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop&auto=format&q=85',
-  fugazza:   'images/fugazza.jpeg',
-  water:     'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&h=400&fit=crop&auto=format&q=85',
-  soda:      'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=600&h=400&fit=crop&auto=format&q=85',
-  beer:      'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=600&h=400&fit=crop&auto=format&q=85',
+  cheese:       'images/cheese.jpeg',
+  pepperoni:    null,
+  marinara:     'images/MARINARA PIZZA.jpeg',
+  fugazza:      'images/FUGAZZA PIZZA.jpeg',
+  cheeseSlice:  'images/CHEESE SLICE.jpeg',
+  marinaraSlice:'images/MARINARA SLICE.jpeg',
+  fugazzaSlice: 'images/FUGAZZA SLICE.jpeg',
 };
 
 const DEFAULT_DATA = {
   _version: DATA_VERSION,
-  categories: ['Pizzas grandes (50CM)', 'Slices (Porciones)', 'Bebidas'],
+  categories: ['Pizzas grandes (50CM)', 'Slices (Porciones)'],
   items: [
     // ── Pizzas grandes (50CM) ─────────────────────────────────
     {
@@ -24,7 +24,7 @@ const DEFAULT_DATA = {
       name: 'Cheese',
       category: 'Pizzas grandes (50CM)',
       description: 'Masa fermentada por 36hs, mozzarella, tomate italiano',
-      price: 23000,
+      price: 24000,
       image: IMG.cheese,
       baseIngredients: ['Masa fermentada 36hs', 'Mozzarella', 'Tomate italiano'],
       available: true,
@@ -57,7 +57,7 @@ const DEFAULT_DATA = {
       name: 'Fugazza con queso',
       category: 'Pizzas grandes (50CM)',
       description: 'Masa fermentada por 36hs, mozzarella, cebolla blanca, cebolla morada, chimichurri pizzero',
-      price: 23000,
+      price: 22000,
       image: IMG.fugazza,
       baseIngredients: ['Masa fermentada 36hs', 'Mozzarella', 'Cebolla blanca', 'Cebolla morada', 'Chimichurri pizzero'],
       available: true,
@@ -69,8 +69,8 @@ const DEFAULT_DATA = {
       name: 'Cheese',
       category: 'Slices (Porciones)',
       description: 'Masa fermentada por 36hs, mozzarella, tomate italiano',
-      price: 5000,
-      image: IMG.cheese,
+      price: 3500,
+      image: IMG.cheeseSlice,
       baseIngredients: ['Masa fermentada 36hs', 'Mozzarella', 'Tomate italiano'],
       available: true,
       stock: null
@@ -80,44 +80,9 @@ const DEFAULT_DATA = {
       name: 'Pepperoni',
       category: 'Slices (Porciones)',
       description: 'Masa fermentada por 36hs, mozzarella, tomate italiano, pepperoni',
-      price: 6500,
+      price: 3800,
       image: IMG.pepperoni,
       baseIngredients: ['Masa fermentada 36hs', 'Mozzarella', 'Tomate italiano', 'Pepperoni'],
-      available: true,
-      stock: null
-    },
-    // ── Bebidas ───────────────────────────────────────────────
-    {
-      id: 'b-001',
-      name: 'Agua Mineral 500ml',
-      category: 'Bebidas',
-      description: 'Agua mineral sin gas',
-      price: 800,
-      image: IMG.water,
-      baseIngredients: [],
-      available: true,
-      stock: null
-    },
-    {
-      id: 'b-002',
-      name: 'Gaseosa 500ml',
-      category: 'Bebidas',
-      description: 'Lata fría a elección',
-      price: 1200,
-      image: IMG.soda,
-      variants: ['Coca-Cola', 'Coca-Cola Zero'],
-      baseIngredients: [],
-      available: true,
-      stock: null
-    },
-    {
-      id: 'b-003',
-      name: 'Cerveza 473ml',
-      category: 'Bebidas',
-      description: 'Lata fría',
-      price: 2000,
-      image: IMG.beer,
-      baseIngredients: [],
       available: true,
       stock: null
     }

@@ -420,6 +420,23 @@ header {
 }
 .menu-item:hover .item-img { transform: scale(1.07); }
 
+.item-img-wrap.item-img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(255,255,255,0.88);
+  background: linear-gradient(180deg, rgba(20,20,20,0.92), rgba(40,40,40,0.92));
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.item-img-wrap.item-img-placeholder span {
+  padding: 0 1rem;
+}
+
 .item-img-overlay {
   position: absolute;
   inset: 0;
